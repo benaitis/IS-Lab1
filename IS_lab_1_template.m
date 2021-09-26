@@ -80,52 +80,61 @@ b = randn(1);
 
 % calculate weighted sum with randomly generated parameters
 %v1 = <...>; % write your code here
+v = x1 * w1 + x2 * w2 + b;
 % calculate current output of the perceptron 
-if v1 > 0
-	y = 1;
-else
-	y = -1;
+y = [];
+for i = 1:length(v)
+       if v(i) > 0
+            y=[y,1];
+       else
+            y=[y,-1];
+       end
 end
 % calculate the error
-e1 = T(1) - y;
-
-% repeat the same for the rest 4 inputs x1 and x2
-% calculate wieghted sum with randomly generated parameters
-% v2 = <...> ; % write your code here
-% calculate current output of the perceptron 
-if v2 > 0
-	y = 1;
-else
-	y = -1;
-end
-% calculate the error
-e2 = T(2) - y;
-
-% <...> write the code for another 3 inputs
+e = T - y';
 
 % calculate the total error for these 5 inputs 
-e = abs(e1) + abs(e2) + abs(e3) + abs(e4) + abs(e5);
+E = abs(sum(e));
 
 % write training algorithm
-while e ~= 0 % executes while the total error is not 0
-	% here should be your code of parameter update
-%   calculate output for current example
-% 
-%   calculate error for current example
-% 
-%   update parameters using current inputs ant current error
-% 	w1 = 
-%   w2 = 
-%   b = 
-% 
-%   Test how good are updated parameters (weights) on all examples used for training
-%   calculate outputs and errors for all 5 examples using current values of the parameter set {w1, w2, b}
-%   calculate 'v1', 'v2', 'v3',... 'v5'
-% 
-%   calculate 'y1', ..., 'y5'
-%     
-%   calculate 'e1', ... 'e5'
+step_size = 0.1;
+while E ~= 0 % executes while the total error is not 0
+    for i = 1:length(v)
+%       update parameters using current inputs ant current error
+        w1 = w1 + step_size * e(i) * x1(i);
+        w2 = w2 + step_size * e(i) * x2(i);
+        b = b + step_size * e(i);
+    end
     
-	% calculate the total error for these 5 inputs 
-	e = abs(e1) + abs(e2) + abs(e3) + abs(e4) + abs(e5);
+
+    v = x1 * w1 + x2 * w2 + b;
+    % calculate current output of the perceptron
+    y = [];
+    for i = 1:length(v)
+           if v(i) > 0
+                y=[y,1];
+           else
+                y=[y,-1];
+           end
+    end
+    
+    % % calculate the error
+    e = T - y';
+    
+    E = sum(abs(e));
+
+%       Test how good are updated parameters (weights) on all examples used for training
+%       calculate outputs and errors for all 5 examples using current values of the parameter set {w1, w2, b}
+%       calculate 'v1', 'v2', 'v3',... 'v5'
+        
+
+%       calculate 'y1', ..., 'y5'
+
+%       calculate 'e1', ... 'e5'
+
+%         calculate the total error for these 5 inputs 
+%         e = abs(e1) + abs(e2) + abs(e3) + abs(e4) + abs(e5);
+    
 end
+
+
