@@ -1,3 +1,18 @@
+% sprendime reikalaujama
+% 1. duomenu paruosimas - matlabe arba data.txt. Atskirti mokymo ir
+% testavimo duomenis.
+% duomenys - pozymiai ir teisingi atsakymai.
+% 2. paimti pradinius parametrus w1, w2, b.
+% 3. tinklo atsako skaiciavimas kiekvienam mokymo pavyzdziui
+% v = x1w1 + x2w2 + b1; y = 1 kai v > 0 ir y = -1 kai v < 0
+% 4. skaiciuojame klaida e = T-y (y imame kiekvienam pvz atskirai)
+% 5. Atnaujinam w1, w2, b (tinklo parametrus) kiekvienai klaidai.
+% 6. Su naujausiomis w1, w2, b reiksmemis skaiciuojame y visiems mokymo
+% pavyzdziams.
+% 7. Skaiciuojame klaida e;
+% 8. Jei bent vienam pavyzdziui klaida != 0 -> kartojame nuo 3 zingsnio
+% 9. Tikriname (skaiciuojame atsaka y) testavimo duomenims.
+
 % Classification using perceptron
 
 % Reading apple images
