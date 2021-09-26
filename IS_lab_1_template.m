@@ -19,7 +19,7 @@
 P=[x1;x2];
 
 %Desired output vector
-T=[1;1;1;-1;-1]; % <- ČIA ANKSČIAU BUVO KLAIDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+T=[1;1;1;-1;-1;1;1]; % <- ČIA ANKSČIAU BUVO KLAIDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 %% train single perceptron with two inputs and one output
 
@@ -77,13 +77,13 @@ end
 % Validation
 [x1_validation,x2_validation] = gettestdata();
 % estimated features are stored in matrix P:
-P_validation=[x1_validation;x2_validation];
+% P_validation=[x1_validation;x2_validation];
 
 v_validation = x1_validation * w1 + x2_validation * w2 + b;
 y_validation = [];
 T_validation = [1;1;1;-1;-1];
-for i_validation = 1:length(v_validation)
-       if v_validation(i_validation) > 0
+for i = 1:length(v_validation)
+       if v_validation(i) > 0
             y_validation=[y_validation,1];
        else
             y_validation=[y_validation,-1];
@@ -93,13 +93,16 @@ end
 e_validation = T_validation - y_validation';
 % 
 % calculate the total error for these 5 inputs 
-E_validation = abs(sum(e_validation));
+E_validation = sum(abs(e_validation));
 
 function [x1,x2] = gettrainingdata()
     %Reading apple images
     A4=imread('apple_07.jpg');
     A5=imread('apple_11.jpg');
     A6=imread('apple_12.jpg');
+    A7=imread('apple_13.jpg');
+    A8=imread('apple_17.jpg');
+    A9=imread('apple_19.jpg');
 
     %Reading pears images
     P3=imread('pear_03.jpg');
@@ -116,6 +119,15 @@ function [x1,x2] = gettrainingdata()
     %6th apple image(A6)
     hsv_value_A6=spalva_color(A6); %color
     metric_A6=apvalumas_roundness(A6); %roundness
+    %7th apple image(A7)
+    hsv_value_A7=spalva_color(A7); %color
+    metric_A7=apvalumas_roundness(A7); %roundness
+    %8th apple image(A8)
+    hsv_value_A8=spalva_color(A8); %color
+    metric_A8=apvalumas_roundness(A8); %roundness
+    %9th apple image(A9)
+    hsv_value_A9=spalva_color(A9); %color
+    metric_A9=apvalumas_roundness(A9); %roundness
 
     %For Pears
     %3rd pear image(P3)
@@ -129,8 +141,8 @@ function [x1,x2] = gettrainingdata()
     %A1,A2,A3,P1,P2
     %building matrix 2x5
     % data is put here -> change it to something else if you want to
-    x1=[hsv_value_A4 hsv_value_A5 hsv_value_A6 hsv_value_P3 hsv_value_P4];
-    x2=[metric_A4 metric_A5 metric_A6 metric_P3 metric_P4];
+    x1=[hsv_value_A4 hsv_value_A5 hsv_value_A6 hsv_value_P3 hsv_value_P4 hsv_value_A7 hsv_value_A8];
+    x2=[metric_A4 metric_A5 metric_A6 metric_P3 metric_P4 metric_A7 metric_A8];
     
 end
 
@@ -139,9 +151,6 @@ function [x1_validation,x2_validation] = gettestdata()
     A1=imread('apple_04.jpg');
     A2=imread('apple_05.jpg');
     A3=imread('apple_06.jpg');
-    A7=imread('apple_13.jpg');
-    A8=imread('apple_17.jpg');
-    A9=imread('apple_19.jpg');
 
     %Reading pears images
     P1=imread('pear_01.jpg');
@@ -158,15 +167,6 @@ function [x1_validation,x2_validation] = gettestdata()
     %3rd apple image(A3)
     hsv_value_A3=spalva_color(A3); %color
     metric_A3=apvalumas_roundness(A3); %roundness
-    %7th apple image(A7)
-    hsv_value_A7=spalva_color(A7); %color
-    metric_A7=apvalumas_roundness(A7); %roundness
-    %8th apple image(A8)
-    hsv_value_A8=spalva_color(A8); %color
-    metric_A8=apvalumas_roundness(A8); %roundness
-    %9th apple image(A9)
-    hsv_value_A9=spalva_color(A9); %color
-    metric_A9=apvalumas_roundness(A9); %roundness
 
     %For Pears
     %1st pear image(P1)
